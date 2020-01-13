@@ -1,0 +1,49 @@
+{% extends "shop/base.html" %}
+{% block content %}
+	<h1 class="mb-3">{{view.kwargs.username}}'s Book Listings : {{ page_obj.paginator.count }} Results </h1>
+	{% for book in object_list %}
+		<div class="card mt-4">
+			<div class="card-body">
+				<h5 class="card-title"><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h5>
+				<h6 class="card-subtitle text-muted">{{ book.author }} | PHP {{ book.price }} | {{ book.genre }} </h6>
+				<br>
+				<p class="card-text"> {{ book.synopsis }}  </p>
+				<p class="text-muted"> Published by {{ book.publisher }} on {{ book.publicationDate|date:"F d, Y" }}</p>
+				<small class="text-muted"> Posted by <a href="{% url 'user-books' book.seller.username %}">{{ book.seller }}</a> on {{ book.timestamp|date:"F d, Y" }}</small>
+			</div>
+		</div>
+	{% endfor %}
+
+	{% if is_paginated %}
+		<nav>
+		  <ul class="pagination my-4">
+		  	{% if page_obj.has_previous %}
+		  		<li class="page-item">
+			      <a class="page-link" href="?page=1">First</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+			    </li>
+			{% endif %}
+			{% for i in page_obj.paginator.page_range %}
+				{% if page_obj.number == i %}
+					<li class="page-item active">
+		      			<a class="page-link" href="?page={{ i }}">{{ i }}<span class="sr-only">{{ i }}</span></a>
+		    		</li>
+		    	{% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+		    		<li class="page-item"><a class="page-link" href="?page={{ i }}"> {{ i }} </a></li>
+		    	{% endif %}
+		    {% endfor %}
+		    {% if page_obj.has_next %}
+			    <li class="page-item">
+			      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+			    </li>
+			{% endif %}
+		  </ul>
+		</nav>
+	{% endif %}
+
+{% endblock content %}

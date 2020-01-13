@@ -1,0 +1,58 @@
+{% extends "shop/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="container">
+
+		<div class="card my-4 p-4">
+			<div class="media">
+				<img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+				<div class="media-body">
+					<h1>{{ user.first_name }} {{ user.last_name }}</h1>
+					<p>Username: {{ user.username }}<p>
+					<p>Email: {{ user.email }}</p>
+					<p>Location: {{ user.profile.location }}</p>
+					<p>Phone Number: {{ user.profile.phone }}</p>
+				</div>
+				<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Modal">
+				    Edit
+				</button>
+				<div id="Modal" class="modal fade">
+				    <div class="modal-dialog">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <h4 class="modal-title">Account Information</h4>
+				            </div>
+				            <div class="modal-body">
+				               <form method="POST" enctype="multipart/form-data">
+									{% csrf_token %}
+									<fieldset class="form-group">
+										{{ update_form|crispy }}
+										{{ profile_form|crispy }}
+									</fieldset>
+									<div class="form-group">
+										<button class="btn btn-outline-info" type="submit"> Submit </button>
+									</div>
+								</form>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+		</div>
+
+		<a class="btn btn-outline-info" href="{% url 'book-create' %}">Create New Book Listing</a>
+		{% for book in books %}
+			<div class="card mt-4">
+				<div class="card-body">
+					<h5 class="card-title"><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h5>
+					<h6 class="card-subtitle text-muted">{{ book.author }} | PHP {{ book.price }} | {{ book.genre }} </h6>
+					<br>
+					<p class="card-text"> {{ book.synopsis }}  </p>
+					<p class="text-muted"> Published by {{ book.publisher }} on {{ book.publicationDate|date:"F d, Y" }}</p>
+					<small class="text-muted"> Posted by {{ book.seller }} on {{ book.timestamp|date:"F d, Y" }}</small>
+				</div>
+			</div>
+		{% endfor %}
+
+	</div>
+{% endblock content %}

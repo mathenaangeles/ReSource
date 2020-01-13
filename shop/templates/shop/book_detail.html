@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+{% block content %}
+	<div class="card mt-4">
+		<div class="card-body">
+			<h5 class="card-title">{{ object.title }}</h5>
+			<h6 class="card-subtitle text-muted">{{ object.author }} | PHP {{ object.price }} | {{ object.genre }} </h6>
+			<br>
+			<p class="card-text"> {{ object.synopsis }}  </p>
+			<p class="text-muted"> Published by {{ object.publisher }} on {{ object.publicationDate|date:"F d, Y" }}</p>
+			<small class="text-muted"> Posted by <a href="{% url 'user-books' object.seller.username %}">{{ book.seller }}</a> on {{ object.timestamp|date:"F d, Y" }}</small>
+		</div>
+		<div class="mx-3 mb-3">
+			{% if object.seller == user %}
+				<a class="btn btn-secondary btn-sm" href="{% url 'book-update' object.id %}">Update</a>
+				<a class="btn btn-danger btn-sm" href="{% url 'book-delete' object.id %}">Delete</a>
+			{% else %}
+				<a class="btn btn-primary btn-sm" href="#">Shop</a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock content %}
