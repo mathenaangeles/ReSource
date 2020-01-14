@@ -2,6 +2,9 @@
 {% block content %}
 	<div class="card mt-4">
 		<div class="card-body">
+			<div class="media">
+					<img class="img-thumbnail" src="{{ object.image.url }}">
+				</div>
 			<h5 class="card-title">{{ object.title }}</h5>
 			<h6 class="card-subtitle text-muted">{{ object.author }} | PHP {{ object.price }} | {{ object.genre }} </h6>
 			<br>
@@ -11,7 +14,7 @@
 		</div>
 		<div class="mx-3 mb-3">
 			{% if object.seller == user %}
-				<a class="btn btn-secondary btn-sm" href="{% url 'book-update' object.id %}">Update</a>
+				<a class="btn btn-secondary btn-sm" href="{% url 'book-update' object.id %}">Edit</a>
 				<a class="btn btn-danger btn-sm" href="{% url 'book-delete' object.id %}">Delete</a>
 			{% else %}
 				<a class="btn btn-primary btn-sm" href="#">Shop</a>

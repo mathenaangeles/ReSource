@@ -1,9 +1,18 @@
 {% extends "shop/base.html" %}
 {% block content %}
 	<h1 class="mb-3">{{view.kwargs.username}}'s Book Listings : {{ page_obj.paginator.count }} Results </h1>
+
+	{% for data in profile %}
+		<h4> {{ user.first_name }} {{user.last_name}}  </h4>
+		<h5> {{ user.email }} | {{data.phone}} | {{data.location}}  </h5>
+	{% endfor %}
+	
 	{% for book in object_list %}
 		<div class="card mt-4">
 			<div class="card-body">
+				<div class="media">
+					<img class="img-thumbnail" src="{{ book.image.url }}">
+				</div>
 				<h5 class="card-title"><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h5>
 				<h6 class="card-subtitle text-muted">{{ book.author }} | PHP {{ book.price }} | {{ book.genre }} </h6>
 				<br>

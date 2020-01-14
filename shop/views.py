@@ -1,5 +1,7 @@
 from .models import Book
+from itertools import chain
 from django.db.models import Q
+from users.models import Profile
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
@@ -14,10 +16,20 @@ class BookList(ListView):
 
 	def get_queryset(self):
 		query = self.request.GET.get('q')
+		minimum = self.request.GET.get('min')
+		maximum = self.request.GET.get('max')
+
 		if query:
 			object_list = self.model.objects.filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(genre__icontains=query))
 		else:
 			object_list = self.model.objects.all().order_by('-timestamp')
+
+		if minimum:
+			object_list = object_list & self.model.objects.filter(Q(price__gte=minimum))
+
+		if maximum:
+			object_list = object_list & self.model.objects.filter(Q(price__lte=maximum))
+	
 		return object_list
 
 class UserBookList(ListView):
@@ -26,8 +38,15 @@ class UserBookList(ListView):
 	ordering = ['-timestamp']
 	paginate_by = 6
 
+	def get_context_data(self, **kwargs):
+		context = super(UserBookList,self).get_context_data(**kwargs)
+		user = get_object_or_404(User, username=self.kwargs.get('username'))
+		context['profile'] = Profile.objects.filter(user=user)
+		context['user'] = user
+		return context
+
 	def get_queryset(self):
-		user = get_object_or_404 (User, username=self.kwargs.get('username'))
+		user = get_object_or_404(User, username=self.kwargs.get('username'))
 		return Book.objects.filter(seller=user).order_by('-timestamp')
 
 class BookDetailView(LoginRequiredMixin, DetailView):

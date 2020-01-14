@@ -3,12 +3,17 @@
 
  	<form class="form-inline my-2 my-lg-0" method='GET'>
 	    <input class="form-control mr-sm-2" type="text" name='q' value='{{ request.GET.q }}'placeholder="Search" aria-label="Search">
+	    <input class="form-control mr-sm-2" type="text" name='min' value='{{ request.GET.min }}'placeholder="Minumum Price" aria-label="Minimum">
+	    <input class="form-control mr-sm-2" type="text" name='max' value='{{ request.GET.max }}'placeholder="Maximum Price" aria-label="Maximum">
 	    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
 	</form>
 
 	{% for book in object_list %}
 		<div class="card mt-4">
 			<div class="card-body">
+				<div class="media">
+					<img class="img-thumbnail" src="{{ book.image.url }}">
+				</div>
 				<h5 class="card-title"><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h5>
 				<h6 class="card-subtitle text-muted">{{ book.author }} | PHP {{ book.price }} | {{ book.genre }} </h6>
 				<br>
