@@ -44,6 +44,9 @@
 		{% for book in books %}
 			<div class="card mt-4">
 				<div class="card-body">
+					<div class="media">
+						<img class="img-thumbnail" src="{{ book.image.url }}">
+					</div>
 					<h5 class="card-title"><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h5>
 					<h6 class="card-subtitle text-muted">{{ book.author }} | PHP {{ book.price }} | {{ book.genre }} </h6>
 					<br>

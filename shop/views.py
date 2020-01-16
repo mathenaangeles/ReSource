@@ -15,14 +15,22 @@ class BookList(ListView):
 	paginate_by = 6
 
 	def get_queryset(self):
-		query = self.request.GET.get('q')
+		title = self.request.GET.get('title')
+		author = self.request.GET.get('author')
+		genre = self.request.GET.get('genre')
 		minimum = self.request.GET.get('min')
 		maximum = self.request.GET.get('max')
 
-		if query:
-			object_list = self.model.objects.filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(genre__icontains=query))
+		if title:
+			object_list = self.model.objects.filter(Q(title__icontains=title))
 		else:
 			object_list = self.model.objects.all().order_by('-timestamp')
+
+		if author:
+			object_list = object_list & self.model.objects.filter(Q(author__icontains=author))
+
+		if genre:
+			object_list = object_list & self.model.objects.filter(Q(genre__icontains=genre))
 
 		if minimum:
 			object_list = object_list & self.model.objects.filter(Q(price__gte=minimum))
@@ -73,6 +81,7 @@ class BookUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 		if self.request.user == book.seller:
 			return True
 		return False
+
 
 class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 	model = Book

@@ -2,7 +2,9 @@
 {% block content %}
 
  	<form class="form-inline my-2 my-lg-0" method='GET'>
-	    <input class="form-control mr-sm-2" type="text" name='q' value='{{ request.GET.q }}'placeholder="Search" aria-label="Search">
+	    <input class="form-control mr-sm-2" type="text" name='title' value='{{ request.GET.title }}'placeholder="Search Book" aria-label="Book">
+	    <input class="form-control mr-sm-2" type="text" name='author' value='{{ request.GET.author }}'placeholder="Search Author" aria-label="Author">
+	    <input class="form-control mr-sm-2" type="text" name='genre' value='{{ request.GET.genre }}'placeholder="Search Genre" aria-label="Genre">
 	    <input class="form-control mr-sm-2" type="text" name='min' value='{{ request.GET.min }}'placeholder="Minumum Price" aria-label="Minimum">
 	    <input class="form-control mr-sm-2" type="text" name='max' value='{{ request.GET.max }}'placeholder="Maximum Price" aria-label="Maximum">
 	    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
