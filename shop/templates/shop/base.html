@@ -1,56 +1,83 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
-	 <!-- Required meta tags -->
+	<!-- Required Meta Tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Gelasio:400,500,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+
+    <!-- main.css -->
     <link rel="stylesheet" type="text/css" href="{% static 'shop/main.css' %}">
 
+	<!-- Title -->
 	{% if title %}
 		<title></title>
 	{% else %}
 		<title>ReSource</title>
 	{% endif %}
+
 </head>
+
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-	  <a class="navbar-brand" href="{% url 'shop-home' %}">ReSource</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
+
+	<!-- Navigation Bar -->
+	<nav class="navbar navbar-expand-lg navbar-dark">
+	  <!-- Navigatin Bar Brand Logo -->
+	  <a class="navbar-brand" href="{% url 'shop-home' %}">
+	  	ReSource
+	  </a>
+	   <!-- Navigation Bar Toggler -->
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation">
+	  	<span class="navbar-toggler-icon"></span>
 	  </button>
+	  <!-- Navigation Bar Items -->
+	  {% url 'shop-home' as home %}
+  	  {% url 'shop-about' as about %}
+      {% url 'profile' as profile %}
+      {% url 'logout' as logout %}
+      {% url 'login' as login %}
+      {% url 'register' as register %}
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item">
-	        <a class="nav-link" href="{% url 'shop-home' %}">Home</a>
+	        <a {% if request.path == home %} class=" nav-link active" {% else %} class="nav-link" {% endif %} href="{{ home }}" > Home</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="{% url 'shop-about' %}">About</a>
+	        <a {% if request.path == about %} class=" nav-link active" {% else %} class="nav-link" {% endif %}  href="{{ about }}">About</a>
 	      </li>
 	    </ul>
-
 	    <ul class="navbar-nav">
 	    	{% if user.is_authenticated %}
 	    		<li class="nav-item">
-	    			<a class="nav-link" href="{% url 'profile' %}">Profile</a>
+	    			<a {% if request.path == profile %} class=" nav-link active" {% else %} class="nav-link" {% endif %}  href="{{ profile }}">Profile</a>
 		      	</li>
 		      	<li class="nav-item">
-		        	<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+		        	<a {% if request.path == logout %} class=" nav-link active" {% else %} class="nav-link" {% endif %}  href="{{ logout }}">Logout</a>
 		      	</li>
 	      	{% else %}
 		      	<li class="nav-item">
-		        	<a class="nav-link" href="{% url 'login' %}">Login</a>
+		        	<a {% if request.path == login %} class=" nav-link active" {% else %} class="nav-link" {% endif %}  href="{{ login }}">Login</a>
 		      	</li>
 		      	<li class="nav-item">
-		        	<a class="nav-link" href="{% url 'register' %}">Register</a>
+		        	<a {% if request.path == register %} class=" nav-link active" {% else %} class="nav-link" {% endif %}  href="{{ register }}">Register</a>
 		      	</li>
 	      	{% endif %}
 	    </ul>
 	  </div>
 	</nav>
+
+	<!-- Messages 
 	<div class="container">
 		{% if messages %}
 			{% for message in messages %}
@@ -59,13 +86,17 @@
 				</div>
 			{% endfor %}
 		{% endif %}
-		{% block content %}{% endblock %}
-	</div>
+	</div> -->
+
+	<!-- Block Content -->
+	{% block content %}{% endblock %}
 
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
+
 </html>

@@ -1,28 +1,62 @@
 {% extends "shop/base.html" %}
 {% block content %}
-	<h1 class="mb-3">{{view.kwargs.username}}'s Book Listings : {{ page_obj.paginator.count }} Results </h1>
-
-	{% for data in profile %}
-		<h4> {{ user.first_name }} {{user.last_name}}  </h4>
-		<h5> {{ user.email }} | {{data.phone}} | {{data.location}}  </h5>
-	{% endfor %}
 	
-	{% for book in object_list %}
-		<div class="card mt-4">
-			<div class="card-body">
-				<div class="media">
-					<img class="img-thumbnail" src="{{ book.image.url }}">
-				</div>
-				<h5 class="card-title"><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h5>
-				<h6 class="card-subtitle text-muted">{{ book.author }} | PHP {{ book.price }} | {{ book.genre }} </h6>
-				<br>
-				<p class="card-text"> {{ book.synopsis }}  </p>
-				<p class="text-muted"> Published by {{ book.publisher }} on {{ book.publicationDate|date:"F d, Y" }}</p>
-				<small class="text-muted"> Posted by <a href="{% url 'user-books' book.seller.username %}">{{ book.seller }}</a> on {{ book.timestamp|date:"F d, Y" }}</small>
-			</div>
-		</div>
-	{% endfor %}
+<div class="container mt-4" id="book-list-main">
 
+	<!-- Seller Book Listing Count -->
+	<h1 class="mb-3"><b class="bg-info">{{user.username}}</b>'s  Book Listings : {{ page_obj.paginator.count }} {% if page_obj.paginator.count is 1 %} Result {% else %} Results {% endif %}</h1>
+
+	<!-- Seller Profile -->
+	<div class="media">
+		<!-- Seller Profile Photo -->
+		<img src="{{ user.profile.image.url }}" class="img-fluid" id="seller-image">
+		<div class="media-body ml-3" id="seller-information">
+			<!-- Seller Name -->
+			<h4> {{ user.first_name }} {{user.last_name}}  </h4>
+			<!-- Seller Contact Information -->
+			<h5> {{ user.email }} {% if user.profile.phone %}  | {{ user.profile.phone }} {% endif %} {% if user.profile.location %} | {{ user.profile.location }} {% endif %}   </h5>
+		</div>
+	</div>
+
+	<!-- Book Listings -->
+	<div class="row">
+	{% for book in object_list %}
+		<div class="card mt-4 mx-4" style="width: 20rem;">
+			<!-- Book Image -->
+			<img class="card-img-top" src="{{ book.image.url }}" id="book-list-image">
+			<!-- Book Price -->
+			<h5 class="card-header" id="book-list-header">PHP {{ book.price }}</h5>
+			<div class="card-body" id="book-list-body">
+				<!-- Book Title -->
+				<h4 class="card-title" id="book-list-title"><a href="{% url 'book-detail' book.id %}"><i class="material-icons">bookmarks</i> {{ book.title }}</a></h4>
+				<!-- Book Author and Genre -->
+				<h6 class="card-subtitle text-muted" id="book-list-subtitle"> {{ book.author }} {% if book.genre %} | {{ book.genre }} {% endif %} </h6>
+				<br>
+				<!-- Book Synopsis -->
+				<p class="card-text"> 
+					{{ book.synopsis|truncatewords:"15" }} 
+					<a href="{% url 'book-detail' book.id %}" id="read-more">Read More.</a> 
+				</p>
+				<!-- Book Publication -->
+				{% if book.publicationDate is not None or book.publisher is not None %} 
+					<small class="text-muted"> Published {% if book.publisher is not None %} by <b>{{ book.publisher }}</b> {% endif %} {% if book.publicationDate is not None %}  on <b>{{ book.publicationDate|date:"F d, Y" }}</b> {% endif %}</small>
+				{% endif %}
+			</div>
+			<!-- Book Seller and Timestamp -->
+			<div class="card-footer" id="book-list-footer">
+    			  <small class="text-muted"> Posted by <a href="{% url 'user-books' book.seller.username %}"> <b class="bg-info">{{ book.seller }}</b></a> on {{ book.timestamp|date:"F d, Y" }}</small>
+  			</div>
+		</div>
+		{% if forloop.counter|divisibleby:3 %}
+			</div>
+			<div class="row">
+		{% endif %}
+		{% empty %}
+			<h2 class="bg-info"> No Results Found </h2>
+	{% endfor %}
+	</div>
+
+	<!-- Pagination -->
 	{% if is_paginated %}
 		<nav>
 		  <ul class="pagination my-4">
@@ -54,5 +88,7 @@
 		  </ul>
 		</nav>
 	{% endif %}
+
+</div>
 
 {% endblock content %}

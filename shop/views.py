@@ -2,6 +2,7 @@ from .models import Book
 from itertools import chain
 from django.db.models import Q
 from users.models import Profile
+from .forms import BookCreateForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
@@ -49,7 +50,6 @@ class UserBookList(ListView):
 	def get_context_data(self, **kwargs):
 		context = super(UserBookList,self).get_context_data(**kwargs)
 		user = get_object_or_404(User, username=self.kwargs.get('username'))
-		context['profile'] = Profile.objects.filter(user=user)
 		context['user'] = user
 		return context
 
@@ -62,7 +62,7 @@ class BookDetailView(LoginRequiredMixin, DetailView):
 
 class BookCreateView(LoginRequiredMixin, CreateView):
 	model = Book
-	fields = ['title','price','author','synopsis','genre','publisher','publicationDate','image']
+	form_class = BookCreateForm
 
 	def form_valid(self,form):
 		form.instance.seller = self.request.user
@@ -70,7 +70,7 @@ class BookCreateView(LoginRequiredMixin, CreateView):
 
 class BookUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 	model = Book
-	fields = ['title','price','author','synopsis','genre','publisher','publicationDate','image']
+	form_class = BookCreateForm
 
 	def form_valid(self,form):
 		form.instance.seller = self.request.user

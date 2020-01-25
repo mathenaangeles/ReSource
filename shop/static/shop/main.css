@@ -1,4 +1,235 @@
-p {
-  text-align: justify;
-  text-justify: inter-word;
+body {
+	background: #F4F3EA;
+	font-family: 'Gelasio', serif;
+}
+
+.navbar {
+	background-color: #333D51;
+	font-family: 'Gelasio', serif;
+}
+
+.navbar .navbar-brand {
+	color: #F4F3EA;
+	font-weight:500;
+}
+
+.navbar .navbar-nav > li > a {
+	color: #CBD0D8 !important;
+}
+
+.navbar .navbar-nav > li > a:hover, 
+.navbar .navbar-nav > li > a:focus {
+	color: #F4F3EA !important;
+    border-bottom: 2px solid #F4F3EA;
+    padding-bottom: 1px;
+}
+
+.navbar .navbar-nav .active {
+	color: #F4F3EA !important;
+	font-weight:500;
+}
+
+.jumbotron {
+	background-color: #D3AC2B;
+	color: #333D51 !important;
+	width: 100%;
+	margin-top: 0px;
+}
+
+.jumbotron .container .display-4 {
+	font-family: 'Roboto', sans-serif !important;
+	font-weight:500;
+}
+
+#jumbotron-text{
+	border-left: 5px solid #333D51;
+}
+
+.jumbotron .jumbotron-filter{
+	border-radius: 0px;
+	border-left: 3px solid #333D51;
+	background-color:#F6F5EE !important;
+}
+
+.btn-info {
+	background-color: #333D51;
+	color: #F4F3EA;
+	border-radius: 0px;
+	border: 1px solid #333D51;
+	font-family: 'Roboto', sans-serif !important;
+	font-weight:500;
+}
+
+.btn-info:hover,
+.btn-info:active,
+.btn-info:focus,
+.btn-info.active {
+  background-color: #F4F3EA !important;
+  color: #333D51 !important;
+  border: 1px solid #F4F3EA;
+  box-shadow: 0 0 0 3px #333D51 !important;
+}
+
+#book-list-main {
+	margin-bottom: 20px;
+}
+
+#book-list-image {
+	border-bottom: 8px solid #D3AC2B;
+	height:500px;
+}
+
+#book-list-header {
+	background-color: #333D51;
+	font-family: 'Roboto', sans-serif !important;
+	font-weight:500;
+	color: #F6F5EE;
+	border-radius:0px;
+}
+
+#book-list-body,
+#book-list-footer {
+	background-color: #F6F5EE;
+	color: #333D51;
+	border-left: 2px solid #333D51;
+	border-right: 2px solid #333D51;
+	border-bottom: 2px solid #333D51;
+}
+
+#book-list-title > a,
+#book-list-subtitle,
+#read-more,
+#book-detail-title,
+#book-form-title,
+label,
+#user-name,
+#register-title,
+#login-title {
+	font-family: 'Roboto', sans-serif !important;
+	font-weight:500;
+	color: #333D51 !important;
+}
+
+.text-muted,
+.text-muted > a {
+	color: #333D51 !important;
+}
+
+i {
+	vertical-align: middle;
+}
+
+.bg-info,
+.bg-info:hover,
+.bg-info > a:hover,
+.bg-info > a {
+	background-color: #CBD0D8 !important;
+	color: #333D51 !important;
+}
+
+#book-detail-image {
+	height:600px;
+	width:400px;
+	border: 5px solid #D3AC2B;
+}
+
+#book-detail-card {
+	max-height: 600px;
+	border-radius: 0px;
+	padding:0px;
+	border: 5px solid #333D51;
+	background-color: #F6F5EE;
+	color: #333D51;
+}
+
+#book-detail-footer {
+	background-color: #F6F5EE;
+	color: #333D51;
+	border-top: 5px solid #333D51;
+}
+
+#book-detail-icons {
+	float:right;
+}
+
+#book-detail-icons > a {
+	color: #F6F5EE;
+}
+
+.modal-content {
+	font-family: 'Roboto', sans-serif !important;
+	border-radius: 0px !important;
+	background-color: #F6F5EE;
+	color: #333D51;
+}
+
+.modal-header,
+.modal-header .close {
+	background-color: #D3AC2B;
+	color: #F6F5EE !important;
+	font-family: 'Roboto', sans-serif !important;
+	font-weight:500;
+	border-radius: 0px !important;
+}
+
+.btn-danger {
+	background-color: #C92636;
+	color: #F6F5EE;
+	border-radius:0px;
+}
+
+.btn-secondary,
+.btn-secondary:hover {
+	background-color: #333D51;
+	color: #F6F5EE;
+	border-radius:0px;
+}
+
+#user-profile-container {
+	border: 10px solid #D3AC2B;
+}
+
+#user-profile {
+    background-color: #D3AC2B;
+    border-radius:0px;
+    margin: 10px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border:0px;
+}
+
+#user-profile .img{
+    text-align:center;
+}
+
+#user-image {
+	border:5px solid #333D51;
+	object-fit:cover;
+    height:200px;
+    width:200px;
+}
+
+#user-profile .details{
+    border-left:3px solid #333D51;
+    margin:20px;
+    color: #333D51 !important;
+}
+
+#edit-user-profile input {
+	font-family: 'Gelasio', serif !important;
+}
+
+#seller-image {
+	border:3px solid #333D51;
+	object-fit:cover;
+    height:60px;
+    width:60px;
+}
+
+#seller-information {
+	font-family: 'Roboto', sans-serif !important;
+}
+
+input {
+	border-radius:0px !important;
 }

@@ -1,16 +1,17 @@
 {% extends "shop/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-	<div class="container">
-		<form method="POST">
-			{% csrf_token %}
-			<fieldset class="form-group">
-				<legend class="border-bottom mb-4"> Book Listing </legend>
-				{{ form|crispy }}
-			</fieldset>
-			<div class="form-group">
-				<button class="btn btn-outline-info" type="submit"> Submit </button>
-			</div>
-		</form>
-	</div>
+<!-- Create and Update Book Listing -->
+<div class="container my-5" id="book-form-container">
+	<form method="POST"  enctype='multipart/form-data'>
+		{% csrf_token %}
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-4" id="book-form-title"><h1>Book Listing Form</h1></legend>
+			{{ form|crispy }}
+		</fieldset>
+		<div class="form-group">
+			<button class="btn btn-info" type="submit"> Submit </button>
+		</div>
+	</form>
+</div>
 {% endblock content %}

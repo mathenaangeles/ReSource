@@ -1,31 +1,68 @@
 {% extends "shop/base.html" %}
 {% block content %}
 
- 	<form class="form-inline my-2 my-lg-0" method='GET'>
-	    <input class="form-control mr-sm-2" type="text" name='title' value='{{ request.GET.title }}'placeholder="Search Book" aria-label="Book">
-	    <input class="form-control mr-sm-2" type="text" name='author' value='{{ request.GET.author }}'placeholder="Search Author" aria-label="Author">
-	    <input class="form-control mr-sm-2" type="text" name='genre' value='{{ request.GET.genre }}'placeholder="Search Genre" aria-label="Genre">
-	    <input class="form-control mr-sm-2" type="text" name='min' value='{{ request.GET.min }}'placeholder="Minumum Price" aria-label="Minimum">
-	    <input class="form-control mr-sm-2" type="text" name='max' value='{{ request.GET.max }}'placeholder="Maximum Price" aria-label="Maximum">
-	    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-	</form>
+ <!-- Jumbotron -->
+<div class="jumbotron jumbotron-fluid">
+	<!-- Preface -->
+	<div class="container" id="jumbotron-text">
+		<h1 class="display-4"> Read More. Spend Less. </h1>
+ 		<p class="lead">Explore new titles, authors, and genres. Find the best prices for books near you.</p>
+ 	</div>
+		<hr class="my-4">
+	<!-- Filters -->
+	<div class="container">
+		<form class="form-inline my-2 my-lg-0 row" method='GET'>
+		    <input class="form-control jumbotron-filter col-sm" type="text" name='title' value='{{ request.GET.title }}'placeholder="Search Book" aria-label="Book">
+		    <input class="form-control jumbotron-filter col-sm" type="text" name='author' value='{{ request.GET.author }}'placeholder="Search Author" aria-label="Author">
+		    <input class="form-control jumbotron-filter col-sm" type="text" name='genre' value='{{ request.GET.genre }}'placeholder="Search Genre" aria-label="Genre">
+		    <input class="form-control jumbotron-filter col-sm" type="text" name='min' value='{{ request.GET.min }}'placeholder="Minumum Price" aria-label="Minimum">
+		    <input class="form-control jumbotron-filter col-sm" type="text" name='max' value='{{ request.GET.max }}'placeholder="Maximum Price" aria-label="Maximum">
+		    <button class="btn btn-info col-sm" type="submit">Search</button>
+		</form>
+	</div>
+</div>
 
+<div class="container" id="book-list-main">
+
+	<!-- Book Listings -->
+	<div class="row">
 	{% for book in object_list %}
-		<div class="card mt-4">
-			<div class="card-body">
-				<div class="media">
-					<img class="img-thumbnail" src="{{ book.image.url }}">
-				</div>
-				<h5 class="card-title"><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h5>
-				<h6 class="card-subtitle text-muted">{{ book.author }} | PHP {{ book.price }} | {{ book.genre }} </h6>
+		<div class="card mt-4 mx-4" style="width: 20rem;">
+			<!-- Book Image -->
+			<img class="card-img-top" src="{{ book.image.url }}" id="book-list-image">
+			<!-- Book Price -->
+			<h5 class="card-header" id="book-list-header">PHP {{ book.price }}</h5>
+			<div class="card-body" id="book-list-body">
+				<!-- Book Title -->
+				<h4 class="card-title" id="book-list-title"><a href="{% url 'book-detail' book.id %}"><i class="material-icons">bookmarks</i> {{ book.title }}</a></h4>
+				<!-- Book Author and Genre -->
+				<h6 class="card-subtitle text-muted" id="book-list-subtitle"> {{ book.author }} {% if book.genre %} | {{ book.genre }} {% endif %} </h6>
 				<br>
-				<p class="card-text"> {{ book.synopsis }}  </p>
-				<p class="text-muted"> Published by {{ book.publisher }} on {{ book.publicationDate|date:"F d, Y" }}</p>
-				<small class="text-muted"> Posted by <a href="{% url 'user-books' book.seller.username %}">{{ book.seller }}</a> on {{ book.timestamp|date:"F d, Y" }}</small>
+				<!-- Book Synopsis -->
+				<p class="card-text"> 
+					{{ book.synopsis|truncatewords:"15" }} 
+					<a href="{% url 'book-detail' book.id %}" id="read-more">Read More.</a> 
+				</p>
+				<!-- Book Publication -->
+				{% if book.publicationDate is not None or book.publisher is not None %} 
+					<small class="text-muted"> Published {% if book.publisher is not None %} by <b>{{ book.publisher }}</b> {% endif %} {% if book.publicationDate is not None %}  on <b>{{ book.publicationDate|date:"F d, Y" }}</b> {% endif %}</small>
+				{% endif %}
 			</div>
+			<!-- Book Seller and Timestamp -->
+			<div class="card-footer" id="book-list-footer">
+    			  <small class="text-muted"> Posted by <a href="{% url 'user-books' book.seller.username %}"> <b class="bg-info">{{ book.seller }}</b></a> on {{ book.timestamp|date:"F d, Y" }}</small>
+  			</div>
 		</div>
+		{% if forloop.counter|divisibleby:3 %}
+			</div>
+			<div class="row">
+		{% endif %}
+		{% empty %}
+			<h2 class="bg-info"> No Results Found </h2>
 	{% endfor %}
+	</div>
 
+	<!-- Pagination -->
 	{% if is_paginated %}
 		<nav>
 		  <ul class="pagination my-4">
@@ -57,5 +94,7 @@
 		  </ul>
 		</nav>
 	{% endif %}
+
+</div>
 
 {% endblock content %}

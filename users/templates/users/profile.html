@@ -1,61 +1,99 @@
 {% extends "shop/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-	<div class="container">
+<div class="container my-5">
 
-		<div class="card my-4 p-4">
-			<div class="media">
-				<img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-				<div class="media-body">
-					<h1>{{ user.first_name }} {{ user.last_name }}</h1>
-					<p>Username: {{ user.username }}<p>
-					<p>Email: {{ user.email }}</p>
-					<p>Location: {{ user.profile.location }}</p>
-					<p>Phone Number: {{ user.profile.phone }}</p>
-				</div>
-				<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Modal">
-				    Edit
-				</button>
-				<div id="Modal" class="modal fade">
-				    <div class="modal-dialog">
-				        <div class="modal-content">
-				            <div class="modal-header">
-				                <h4 class="modal-title">Account Information</h4>
-				            </div>
-				            <div class="modal-body">
-				               <form method="POST" enctype="multipart/form-data">
-									{% csrf_token %}
-									<fieldset class="form-group">
-										{{ update_form|crispy }}
-										{{ profile_form|crispy }}
-									</fieldset>
-									<div class="form-group">
-										<button class="btn btn-outline-info" type="submit"> Submit </button>
-									</div>
-								</form>
-				            </div>
-				        </div>
-				    </div>
+	<!-- User Profile -->
+	<div class="container" id="user-profile-container">
+		<div class="card" id="user-profile">
+			<div class="card-body">
+				<div class="row">
+					<!-- User Profile Photo -->
+					<div class="col-md-4 img">
+			  			<img src="{{ user.profile.image.url }}" class="img-fluid" id="user-image">
+					</div>
+					<div class="col-md-6 details">
+						<!-- User Name and Username -->
+						<div class="card-title">
+					    	<h1 id="user-name">{{ user.first_name }} {{ user.last_name }} <i class="material-icons" data-toggle="modal" data-target="#Modal"> edit </i> </h1>
+					    	<h5><text class="bg-info">@{{ user.username }}</text></h5>
+						</div>
+						<!-- User Contact Information -->
+					  	<p class="card-text">
+					  		<i class="material-icons">person_pin</i> {{ user.profile.location }}<br>
+						    <i class="material-icons">email</i> {{ user.email }}<br>
+						    <i class="material-icons">phone</i> {{ user.profile.phone }}    
+					  	</p>
+					</div>
 				</div>
 			</div>
 		</div>
-
-		<a class="btn btn-outline-info" href="{% url 'book-create' %}">Create New Book Listing</a>
-		{% for book in books %}
-			<div class="card mt-4">
-				<div class="card-body">
-					<div class="media">
-						<img class="img-thumbnail" src="{{ book.image.url }}">
-					</div>
-					<h5 class="card-title"><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></h5>
-					<h6 class="card-subtitle text-muted">{{ book.author }} | PHP {{ book.price }} | {{ book.genre }} </h6>
-					<br>
-					<p class="card-text"> {{ book.synopsis }}  </p>
-					<p class="text-muted"> Published by {{ book.publisher }} on {{ book.publicationDate|date:"F d, Y" }}</p>
-					<small class="text-muted"> Posted by {{ book.seller }} on {{ book.timestamp|date:"F d, Y" }}</small>
-				</div>
-			</div>
-		{% endfor %}
-
 	</div>
+
+	<!-- Update User Information -->
+	<div id="Modal" class="modal fade">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h4 class="modal-title">Account Information</h4>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true"><i class="material-icons">close</i></span>
+			        </button>
+	            </div>
+	            <div class="modal-body">
+	               <form method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<fieldset class="form-group" id="edit-user-profile">
+							{{ update_form|crispy }}
+							{{ profile_form|crispy }}
+						</fieldset>
+						<div class="form-group">
+							<button class="btn btn-secondary" type="submit"> Submit </button>
+						</div>
+					</form>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- Create Book Listing -->
+	<a href="{% url 'book-create' %}" class="btn btn-info btn-lg btn-block mt-3">Add Book Listing</a>
+
+	<!-- User's Book Listings -->
+	<div class="row">
+		{% for book in books %}
+			<div class="card mt-4 mx-4" style="width: 20rem;">
+				<!-- Book Image -->
+				<img class="card-img-top" src="{{ book.image.url }}" id="book-list-image">
+				<!-- Book Price -->
+				<h5 class="card-header" id="book-list-header">PHP {{ book.price }}</h5>
+				<div class="card-body" id="book-list-body">
+					<!-- Book Title -->
+					<h4 class="card-title" id="book-list-title"><a href="{% url 'book-detail' book.id %}"><i class="material-icons">bookmarks</i> {{ book.title }}</a></h4>
+					<!-- Book Author and Genre -->
+					<h6 class="card-subtitle text-muted" id="book-list-subtitle"> {{ book.author }} {% if book.genre %} | {{ book.genre }} {% endif %} </h6>
+					<br>
+					<!-- Book Synopsis -->
+					<p class="card-text"> 
+						{{ book.synopsis|truncatewords:"15" }} 
+						<a href="{% url 'book-detail' book.id %}" id="read-more">Read More.</a> 
+					</p>
+					<!-- Book Publication -->
+					{% if book.publicationDate is not None or book.publisher is not None %} 
+						<small class="text-muted"> Published {% if book.publisher is not None %} by <b>{{ book.publisher }}</b> {% endif %} {% if book.publicationDate is not None %}  on <b>{{ book.publicationDate|date:"F d, Y" }}</b> {% endif %}</small>
+					{% endif %}
+				</div>
+				<!-- Book Seller and Timestamp -->
+				<div class="card-footer" id="book-list-footer">
+	    			  <small class="text-muted"> Posted by <a href="{% url 'user-books' book.seller.username %}"> <b class="bg-info">{{ book.seller }}</b></a> on {{ book.timestamp|date:"F d, Y" }}</small>
+	  			</div>	
+			</div>
+			{% if forloop.counter|divisibleby:3 %}
+				</div>
+				<div class="row">
+			{% endif %}
+		{% endfor %}
+	</div>
+
+</div>
 {% endblock content %}
