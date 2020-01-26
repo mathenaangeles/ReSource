@@ -233,3 +233,8 @@ i {
 input {
 	border-radius:0px !important;
 }
+
+.alert-block > ul {
+    list-style-type: none !important;
+    display: contents !important;
+}

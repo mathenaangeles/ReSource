@@ -3,7 +3,7 @@
 {% block content %}
 <!-- Create and Update Book Listing -->
 <div class="container my-5" id="book-form-container">
-	<form method="POST"  enctype='multipart/form-data'>
+	<form method="POST"  enctype='multipart/form-data' novalidate>
 		{% csrf_token %}
 		<fieldset class="form-group">
 			<legend class="border-bottom mb-4" id="book-form-title"><h1>Book Listing Form</h1></legend>
