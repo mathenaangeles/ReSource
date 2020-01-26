@@ -6,6 +6,10 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 
 © Mathena Angeles
 
+Code History:
+
+1/21/20 - First Sprint - Added BookCreateForm
+
 """
 from django import forms
 from .models import Book

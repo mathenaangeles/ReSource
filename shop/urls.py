@@ -6,6 +6,12 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 
 © Mathena Angeles
 
+Code History:
+
+1/20/20 - First Sprint - Added Paths for user-books, book-detail, book-create, about, and home Pages
+1/22/20 - " - Added Path for book-update Page
+1/24/20 - " - Added Path for book-delete Page
+
 """
 from . import views
 from .views import BookList, UserBookList, BookDetailView, BookCreateView, BookUpdateView, BookDeleteView

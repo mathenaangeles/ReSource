@@ -6,6 +6,10 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 
 © Mathena Angeles
 
+Code History:
+
+1/22/20 - First Sprint - Added UserRegisterForm, UserUpdateForm, and ProfileUpdateForm
+
 """
 from django import forms
 from .models import Profile

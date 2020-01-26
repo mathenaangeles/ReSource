@@ -5,6 +5,10 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 
 © Mathena Angeles
 
+Code History:
+
+1/19/20 - First Sprint - Added Paths for admin, profile, register, login, logout, and home Pages
+
 """
 
 """ReSource URL Configuration

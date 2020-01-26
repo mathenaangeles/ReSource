@@ -6,12 +6,23 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 
 © Mathena Angeles
 
+Code History:
+
+1/21/20 - First Sprint - Added the register and profile Views
+
 """
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from shop.models import Book
+
+"""
+
+register method (Created on 1/21/20) -  This is a function-based view for the user registration. It takes
+in the request and renders the registration template. 
+
+"""
 
 def register(request):
 	if request.method == 'POST' :
@@ -24,6 +35,13 @@ def register(request):
 	else:
 		form = UserRegisterForm()
 	return render(request, 'users/register.html', {'form':form})
+
+"""
+
+profile method (Created on 1/21/20) -  This is a function-based view for the user's profiles. It takes
+in the request and renders the user's profile template. 
+
+"""
 
 @login_required
 def profile(request):

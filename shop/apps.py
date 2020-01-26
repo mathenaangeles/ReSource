@@ -6,6 +6,10 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 
 © Mathena Angeles
 
+Code History:
+
+1/21/20 - First Sprint - ShopConfig Set-Up
+
 """
 from django.apps import AppConfig
 

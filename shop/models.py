@@ -6,6 +6,10 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 
 © Mathena Angeles
 
+Code History:
+
+1/21/20 - First Sprint - Added Book Model
+
 """
 from django.db import models
 from django.urls import reverse
@@ -27,8 +31,22 @@ class Book(models.Model):
 	timestamp = models.DateTimeField(default=timezone.now)
 	seller = models.ForeignKey(User, on_delete=models.CASCADE)
 
+	"""
+
+	__str__ method (Created on 0/21/20) - This creates a more readable string representation of the object.
+	It takes in the instance of the class itself and returns the title of the book.
+
+	"""
+
 	def __str__(self):
 		return self.title
+
+	"""
+
+	get_absolute_url method (Created on 0/21/20) - It tell Django how to calculate the canonical URL for an object. 
+	It takes in the instance of the class itself return a string that can be used to refer to the object over HTTP.
+
+	"""
 
 	def get_absolute_url(self):
 		return reverse('book-detail',kwargs={'pk': self.pk})
