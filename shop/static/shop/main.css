@@ -252,3 +252,32 @@ input {
     list-style-type: none !important;
     display: contents !important;
 }
+
+.pagination {
+  	display: flex;
+  	justify-content: center;
+}
+
+.pagination li {
+  	display: block;
+}
+
+.pagination li > a {
+	display: block;
+	background-color: #CBD0D8 !important;
+	color: #333D51 !important;
+	border-radius: 0px !important;
+	font-family: 'Roboto', sans-serif !important;
+	font-weight:500;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover,
+.pagination > .active > a,
+.pagination > .active > a:hover {
+    color: #CBD0D8 !important;
+    background-color: #333D51 !important;
+    border-color: #CBD0D8 !important;
+}
