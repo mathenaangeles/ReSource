@@ -281,3 +281,7 @@ input {
     background-color: #333D51 !important;
     border-color: #CBD0D8 !important;
 }
+
+.invalid-feedback {
+    display: block;
+}

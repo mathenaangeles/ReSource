@@ -46,7 +46,7 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 				<p class="card-text"> {{ object.synopsis }}  </p>
 				<!-- Book Publication -->
 				<small class="text-muted"> 
-					{% if object.publicationDate is not None or object.publisher is not None %} 
+					{% if object.publicationDate or object.publisher %} 
 						Published {% if object.publisher is not None %} by <b>{{ object.publisher }}</b> {% endif %} {% if object.publicationDate is not None %}  on <b>{{ object.publicationDate|date:"F d, Y" }}</b> {% endif %}
 					{% endif %}
 				</small>

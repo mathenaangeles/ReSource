@@ -54,7 +54,7 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 					<a href="{% url 'book-detail' book.id %}" id="read-more">Read More.</a> 
 				</p>
 				<!-- Book Publication -->
-				{% if book.publicationDate is not None or book.publisher is not None %} 
+				{% if book.publicationDate or book.publisher %} 
 					<small class="text-muted"> Published {% if book.publisher is not None %} by <b>{{ book.publisher }}</b> {% endif %} {% if book.publicationDate is not None %}  on <b>{{ book.publicationDate|date:"F d, Y" }}</b> {% endif %}</small>
 				{% endif %}
 			</div>

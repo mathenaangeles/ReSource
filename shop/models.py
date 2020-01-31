@@ -27,7 +27,7 @@ class Book(models.Model):
 	genre = models.CharField(max_length=255, blank=True)
 	publisher = models.CharField(max_length=255, blank=True)
 	publicationDate = models.DateField(null=True, blank=True, verbose_name='Publication Date')
-	image = models.ImageField(default='default.jpg',upload_to="book_pictures")
+	image = models.ImageField(upload_to="book_pictures")
 	timestamp = models.DateTimeField(default=timezone.now)
 	seller = models.ForeignKey(User, on_delete=models.CASCADE)
 
