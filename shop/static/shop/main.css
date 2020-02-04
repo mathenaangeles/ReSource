@@ -9,6 +9,7 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 Code History:
 
 1/25/20 - First Sprint - Added CSS Styling
+1/4/20 - Second Sprint - Edited CSS Styling for Alerts
 
 */
 
@@ -251,6 +252,15 @@ input {
 .alert-block > ul {
     list-style-type: none !important;
     display: contents !important;
+}
+
+.alert-danger {
+	background-color: transparent !important;
+	border: 0px;
+	color: #DC3545;
+	font-weight: 700;
+	padding: 0px 0px; 
+	font-size: 12.8px;
 }
 
 .pagination {
