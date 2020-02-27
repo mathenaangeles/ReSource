@@ -32,7 +32,8 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 					<!-- Delete Book Listing -->
 					<i class="material-icons ml-2" data-toggle="modal" data-target="#deleteModal">delete</i>
 				{% else %}
-					<a href="#"><i class="material-icons">shopping_cart</i></a>
+					<!-- Shop Book Listing -->
+					<a href="../../dialogs/{{ object.seller.username }}"><i class="material-icons">shopping_cart</i></a>
 				{% endif %}
 				</div>
 			</h3>

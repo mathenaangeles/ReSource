@@ -8,6 +8,7 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 Code History:
 
 1/19/20 - First Sprint - Added Paths for admin, profile, register, login, logout, and home Pages
+1/27/20 - Third Sprint - Added Path for inbox
 
 """
 
@@ -32,6 +33,7 @@ from django.urls import path, include
 from users import views as user_views
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from django_private_chat import urls as django_private_chat_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,6 +41,7 @@ urlpatterns = [
     path('register/',user_views.register,name='register'),
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
+    path('', include('django_private_chat.urls'), name='dialog'),
     path('', include('shop.urls'))
 ] 
 
