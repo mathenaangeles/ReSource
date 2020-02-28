@@ -6,11 +6,16 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 
 © Mathena Angeles
 
+Code History:
+
+1/20/20 - Third Sprint - Created the file.
+
 -->
 
 {% extends "shop/base.html" %}
 {% load i18n %}
 {% block content %}
+{% load tz %}
 
     <style>
         #inbox-page-row {
@@ -147,14 +152,14 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
                 <div class="row">
                     <div class="messages-container clearfix">
                         <div id="messages" class="messages">
-                            {% for msg in active_dialog.messages.all %}
+                            {% for msg in active_dialog.messages.all reversed %}
                                 <div class="row  {% if msg.read %}msg-read{% else %}msg-unread{% endif %} {% if msg.sender != request.user %}opponent{% endif %}"
                                      data-id="{{ msg.id }}" id="each-message">
                                     <p class="{% if msg.sender == request.user %}pull-right{% else %}pull-left{% endif %}">
                                         <span class="username">{{ msg.sender.username }}:</span>
                                         {{ msg.text }}
                                         <span class="timestamp">&ndash;
-                                            <span data-livestamp="{{ msg.get_formatted_create_datetime }}">{{ msg.get_formatted_create_datetime }}</span>
+                                            <span data-livestamp="{{ msg.get_formatted_create_datetime }}">{% timezone "Asia/Manila" %} {{ msg.get_formatted_create_datetime }} {% endtimezone %}</span>
                                         </span>
                                     </p>
                                 </div>
