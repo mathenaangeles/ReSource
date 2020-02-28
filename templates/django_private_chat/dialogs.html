@@ -252,12 +252,15 @@ Code History:
                         '</p> ' +
                         '</div>');
                 $('#messages').append(msgElem);
+                location.reload(true)
                 scrollToLastMessage()
+                
             }
 
             function scrollToLastMessage() {
                 var $msgs = $('#messages');
                 $msgs.animate({"scrollTop": $msgs.prop('scrollHeight')})
+
             }
 
             function generateMessage(context) {
