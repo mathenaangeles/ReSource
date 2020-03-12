@@ -18,6 +18,7 @@ from itertools import chain
 from django.db.models import Q
 from users.models import Profile
 from .forms import BookCreateForm
+from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
@@ -54,13 +55,21 @@ class BookList(ListView):
 			object_list = object_list & self.model.objects.filter(Q(author__icontains=author))
 
 		if genre:
-			object_list = object_list & self.model.objects.filter(Q(genre__icontains=genre))
+			object_list = object_list & self.model.objects.filter(Q(genre=genre))
 
 		if minimum:
-			object_list = object_list & self.model.objects.filter(Q(price__gte=minimum))
+			try:
+				object_list = object_list & self.model.objects.filter(Q(price__gte=minimum))
+			except:
+				object_list = object_list.none()
+				messages.error(self.request,'Please enter a valid number in the minimum field.')
 
 		if maximum:
-			object_list = object_list & self.model.objects.filter(Q(price__lte=maximum))
+			try:
+				object_list = object_list & self.model.objects.filter(Q(price__lte=maximum))
+			except:
+				object_list = object_list.none()
+				messages.error(self.request,'Please enter a valid number in the maximum field.')
 	
 		return object_list
 

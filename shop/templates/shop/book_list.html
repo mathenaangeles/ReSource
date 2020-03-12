@@ -34,6 +34,14 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 
 <div class="container" id="book-list-main">
 
+	<div class="row">
+		{% if messages %}
+		    {% for message in messages %}
+		      <p class="alert-danger">{{ message }} &nbsp; </p>
+		    {% endfor %}
+		{% endif %}
+	</div>
+
 	<!-- Book Listings -->
 	<div class="row">
 	{% for book in object_list %}
@@ -71,6 +79,7 @@ Science, College of Engineering, University of the Philippines, Diliman for the 
 			<h2 class="bg-info"> No Results Found </h2>
 	{% endfor %}
 	</div>
+
 
 	<!-- Pagination -->
 	{% if is_paginated %}
