@@ -295,3 +295,8 @@ input {
 .invalid-feedback {
     display: block;
 }
+
+#priceError {
+	color: red !important;
+	background-color: black !important;
+}
