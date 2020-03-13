@@ -148,24 +148,12 @@ Code History:
                         <span class="badge badge-danger" id="offline-status" style="display: none;">{% trans "Offline" %}</span>
                     </h3>
                 </div>
-                 <!-- Chat Input -->
-                <div class="row" id="chat-box-form">
-                    <div class="add-message">
-                        <div class="form-group">
-                            <textarea id="chat-message" class="form-control"
-                            placeholder="{% trans 'Write a message...' %}"></textarea>
-                            
-                        </div>
-                        <div class="form-group">
-                            <input id="btn-send-message" type="submit" class="btn btn-info btn-lg btn-block pull-right send-message" style="margin-bottom: 20px;" value="{% trans 'Send' %}"/>
-                        </div>
-                    </div>
-                </div>
                 <!-- Chat History -->
                 <div class="row">
                     <div class="messages-container clearfix">
                         <div id="messages" class="messages">
-                            {% for msg in active_dialog.messages.all reversed %}
+                            <!-- {% for msg in active_dialog.messages.all reversed %} {% endfor %} -->
+                            {% for msg in active_dialog.messages.all %}
                                 <div class="row  {% if msg.read %}msg-read{% else %}msg-unread{% endif %} {% if msg.sender != request.user %}opponent{% endif %}"
                                      data-id="{{ msg.id }}" id="each-message">
                                     <p class="{% if msg.sender == request.user %}pull-right{% else %}pull-left{% endif %}">
@@ -177,6 +165,20 @@ Code History:
                                     </p>
                                 </div>
                             {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="row" id="chat-box-form">
+                    <div class="add-message">
+                        <div class="form-group">
+                            <textarea id="chat-message" class="form-control"
+                            placeholder="{% trans 'Write a message...' %}"></textarea>
+                            
+                        </div>
+                        <div class="form-group">
+                            <input id="btn-send-message" type="submit" class="btn btn-info btn-lg btn-block pull-right send-message" style="margin-bottom: 20px;" value="{% trans 'Send' %}"/>
                         </div>
                     </div>
                 </div>
@@ -253,7 +255,7 @@ Code History:
                         '</p> ' +
                         '</div>');
                 $('#messages').append(msgElem);
-                location.reload(true)
+                //location.reload(true)
                 scrollToLastMessage()
                 
             }
