@@ -12,3 +12,13 @@ Before running the application, please make sure that the `.env` file is set up 
 2. Install packages by running `pip install -r requirements.txt`.
 3. Start the Django development server by running `python manage.py runserver`.
 4. Start the chat server by running `python manage.py run_chat_server`.
+
+## Usage
+
+You can register for your own account or use one of the sample accounts below:
+ - Jane Doe
+   - Username: janedoe
+   - Password: testing321
+ - Jone Doe
+    - Username: johndoe
+    - Password: testing321
