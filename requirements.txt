@@ -1,6 +1,6 @@
 amqp==2.5.1
 asgiref==3.5.2
-Babel==2.8.0
+Babel==2.9.1
 backports.zoneinfo==0.2.1
 billiard==3.6.1.0
 boto3==1.11.13
