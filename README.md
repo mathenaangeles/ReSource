@@ -1,6 +1,6 @@
 # ReSource
 
-ReSource is a **secondhand book trading portal**. Users can post books on the platform so others can purchase them by sending the original poster a direct message on the platform. The address and contact details of users are visible on their respective profiles.
+ReSource is a **secondhand book trading portal**. Buyers can search for specific book listings and send direct messages to sellers. Sellers can manage their inventories, as well as coordinate payment and delivery details with buyers on the platform. The address and contact details of users are visible on their profiles.
 
 ## Getting Started
 
