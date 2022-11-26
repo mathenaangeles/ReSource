@@ -1,10 +1,10 @@
 # ReSource
 
-ReSource is a secondhand book trading portal. Users purchase books posted by other users by sending them a direct message on the platform.
+ReSource is a **secondhand book trading portal**. Users can post books on the platform so others can purchase them by sending the original poster a direct message on the platform. The address and contact details of users are visible on their respective profiles.
 
 ## Getting Started
 
-Before running the application, please make sure your `.env` file is set up.
+Before running the application, please make sure that the `.env` file is set up in the same directory as the `settings.py` file.
 
 1. Clone the repository in your local machine.
 2. Install packages by running `pip install -r requirements.txt`.
