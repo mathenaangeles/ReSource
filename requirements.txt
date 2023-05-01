@@ -27,7 +27,7 @@ django-private-chat==0.3.0
 django-storages==1.9.1
 djangorestframework==3.10.2
 docutils==0.15.2
-Flask==1.1.1
+Flask==2.3.2
 gunicorn==19.9.0
 importlib-metadata==0.20
 itsdangerous==1.1.0
